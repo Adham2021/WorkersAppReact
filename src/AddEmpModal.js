@@ -131,7 +131,7 @@ export class AddEmpModal extends Component {
                                         <Form.Label>מחיר שעה</Form.Label>
                                         <Form.Control
                                             type="number"
-                                            name="Amount"
+                                            name="Amount" 
                                             placeholder="מחיר שעה"
                                         />
                                     </Form.Group>
