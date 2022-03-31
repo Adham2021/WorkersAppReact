@@ -29,7 +29,7 @@ export class EditEmpModal extends Component{
                 'Content-Type':'application/json'
             },
             body:JSON.stringify({
-                Id:event.target.Id.value,
+                Id:this.props.empid,
                 WorkerName:event.target.WorkerName.value,
                 SiteId:event.target.SiteId.value,
                 DateOfJoining:event.target.DateOfJoining.value,
@@ -90,9 +90,6 @@ centered
         <Row>
             <Col sm={6}>
                 <Form onSubmit={this.handleSubmit}>
-                <Form.Group controlId="Id">
-
-                    </Form.Group>
 
                     <Form.Group controlId="WorkerName">
                         <Form.Label>שם עובד</Form.Label>

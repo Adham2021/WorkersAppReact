@@ -18,7 +18,7 @@ export class EditExpenseModal extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                Id: event.target.ExpenseId.value,
+                Id: this.props.expenseid,
                 Name: event.target.ExpenseName.value,
                 Price: event.target.ExpensePrice.value,
 
@@ -26,13 +26,24 @@ export class EditExpenseModal extends Component {
         })
             .then(res => res.json())
             .then((result) => {
-                swal({
-                    title: result,
-                    icon: "success",
-                    timer: 2000,
-                    buttons: false,
-                });
-                this.props.onHide()
+                if(result.success){
+                    swal({
+                        title: result.message,
+                        icon: "success",
+                        timer: 2000,
+                        buttons: false,
+                    });
+                    this.props.onHide()
+                }
+                else { 
+                    swal({
+                        title: result.message,
+                        icon: "error",
+                        buttons: true,
+                    });
+                }
+               
+               
             },
                 (error) => {
                     swal({
@@ -63,9 +74,6 @@ export class EditExpenseModal extends Component {
                         <Row>
                             <Col sm={6}>
                                 <Form onSubmit={this.handleSubmit}>
-                                    <Form.Group controlId="ExpenseId">
-                                    </Form.Group>
-
                                     <Form.Group controlId="ExpenseName">
                                         <Form.Label>שם</Form.Label>
                                         <Form.Control type="text" name="ExpenseName" required
@@ -78,7 +86,13 @@ export class EditExpenseModal extends Component {
                                             defaultValue={this.props.expenseprice}
                                             placeholder="Expense Price" />
                                     </Form.Group>
+                                    <Form.Group>
+                                        <Button variant="primary" type="submit">
+                                            <Save className='ms-1' />
+                                            עדכן הוצאה
+                                        </Button>
 
+                                    </Form.Group>
 
                                 </Form>
                             </Col>
@@ -87,10 +101,6 @@ export class EditExpenseModal extends Component {
 
                     <Modal.Footer>
 
-                        <Button variant="primary" type="submit">
-                            <Save className='ms-1' />
-                            עדכן הוצאה
-                        </Button>
 
                         <Button variant="danger" onClick={this.props.onHide}>סגור</Button>
                     </Modal.Footer>

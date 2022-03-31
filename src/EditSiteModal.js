@@ -18,7 +18,7 @@ export class EditSiteModal extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                Id: event.target.SiteId.value,
+                Id: this.props.siteid,
                 SiteName: event.target.SiteName.value,
                 LocationName: event.target.LocationName.value,
 
@@ -72,9 +72,6 @@ export class EditSiteModal extends Component {
                         <Row>
                             <Col sm={6}>
                                 <Form onSubmit={this.handleSubmit}>
-                                    <Form.Group controlId="SiteId">
-
-                                    </Form.Group>
 
                                     <Form.Group controlId="SiteName">
                                         <Form.Label>שם אתר</Form.Label>
