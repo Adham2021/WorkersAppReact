@@ -2,39 +2,39 @@ import React, { Component } from 'react';
 import { Table } from 'react-bootstrap';
 
 import { Button, ButtonToolbar } from 'react-bootstrap';
-import { AddEmpModal } from './AddEmpModal';
-import { EditEmpModal } from './EditEmpModal';
+import { AddAdvancePaymentModal } from './AddAdvancePaymentModal';
+import { EditAdvancePaymentModal } from './EditAdvancePaymentModal';
 import swal from 'sweetalert';
 import { Pencil, PlusCircle, Trash } from 'react-bootstrap-icons';
 
-export class Employee extends Component {
+export class AdvancePayment extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { emps: [], addModalShow: false, editModalShow: false }
+        this.state = { advpayments: [], addModalShow: false, editModalShow: false }
     }
 
-    refreshList() {
-        fetch(process.env.REACT_APP_API + 'worker/GetAllWorkers')
+    refreshAdvsList() {
+        fetch(process.env.REACT_APP_API + 'advancePayment/GetAllAdvancePayments')
             .then(response => response.json())
             .then(data => {
-                this.setState({ emps: data });
+                this.setState({ advpayments: data });
             });
     }
 
     componentDidMount() {
-        this.refreshList();
+        this.refreshAdvsList();
     }
 
     componentDidUpdate(prevProps, prevState) {
-      //  if (prevState.addModalShow != this.state.addModalShow || prevState.editModalShow != this.state.editModalShow) {
-            this.refreshList();
-       // }
+        if (prevState.addModalShow != this.state.addModalShow || prevState.editModalShow != this.state.editModalShow) {
+            this.refreshAdvsList();
+        }
     }
 
-    deleteEmp(workerId) {
+    deleteAdv(advancePaymentId) {
         swal({
-            title: "האם אתה בטוח למחוק את העובד ?",
+            title: "האם אתה בטוח למחוק את המפרעה ?",
             text: "אתה לא יכול לשחזר נתונים !",
             icon: "warning",
             buttons: true,
@@ -43,7 +43,7 @@ export class Employee extends Component {
         }).then(
             function (isConfirm) {
                 if (isConfirm) {
-                    fetch(process.env.REACT_APP_API + 'worker/' + workerId, {
+                    fetch(process.env.REACT_APP_API + 'advancePayment/' + advancePaymentId, {
                         method: 'DELETE',
                         header: {
                             'Accept': 'application/json',
@@ -60,7 +60,7 @@ export class Employee extends Component {
                                     buttons: false,
 
                                 });
-                                //this.refreshList();
+                                this.refreshAdvsList();
                             }
                             else {
                                 swal({
@@ -85,7 +85,7 @@ export class Employee extends Component {
 
     }
     render() {
-        const { emps, empid, empname, site, doj, phone, amount,fullamount,workerid } = this.state;
+        const { advpayments, advid, advname, advamount, advnotes, advworker , advdate} = this.state;
         let addModalClose = () => this.setState({ addModalShow: false });
         let editModalClose = () => this.setState({ editModalShow: false });
         return (
@@ -93,59 +93,51 @@ export class Employee extends Component {
                 <Table className="mt-4" striped bordered hover size="sm">
                     <thead>
                         <tr>
-                            <th>שם עובד</th>
-                            <th>אתר</th>
-                            <th>טלפון</th>
-                            <th>ת.ז</th>
-                            <th>מחיר שעה מלא</th>
-                            <th>מחיר שעה</th>
-                            <th>תאריך הצטרפות</th>
+                            <th>שם מפרעה</th>
+                            <th>סכום</th>
+                            <th>שם העובד-ת.ז</th>
+                            <th>תאריך</th>
+                            <th>הערות</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {emps.map(emp =>
-                            <tr key={emp.Id}>
-                                <td>{emp.WorkerName}</td>
-                                <td>{emp.Site.SiteName}</td>
-                                <td>{emp.Phone}</td>
-                                <td>{emp.WorkerID}</td>
-                                <td>{emp.FullAmount}</td>
-                                <td>{emp.Amount}</td>
-                                <td>{(emp.DateOfJoining).split("T")[0]}</td>
+                        {advpayments.map(adv =>
+                            <tr key={adv.Id}>
+                                <td>{adv.Name}</td>
+                                <td>{adv.Amount}</td>
+                                <td>{adv.Worker.WorkerName + " - " + adv.Worker.WorkerID}</td>
+                                <td>{(adv.Date).split("T")[0]}</td>
+                                <td>{adv.Notes}</td>
                                 <td>
                                     <ButtonToolbar>
                                         <Button className="mr-2 ms-1" variant="info"
                                             onClick={() => this.setState({
                                                 editModalShow: true,
-                                                empid: emp.Id,
-                                                empname: emp.WorkerName,
-                                                site: emp.SiteId,
-                                                doj: (emp.DateOfJoining).split("T")[0],
-                                                phone: emp.Phone,
-                                                amount: emp.Amount,
-                                                fullamount: emp.FullAmount,
-                                                workerid: emp.WorkerID,
+                                                advid: adv.Id,
+                                                advname: adv.Name,
+                                                advworker: adv.WorkerId,
+                                                advamount: adv.Amount,
+                                                advnotes: adv.Notes,
+                                                advdate:(adv.Date).split("T")[0],
+
                                             })}>
-                                           <Pencil />
+                                            <Pencil />
                                         </Button>
 
                                         <Button className="mr-2" variant="danger"
-                                            onClick={() => this.deleteEmp(emp.Id)}>
+                                            onClick={() => this.deleteAdv(adv.Id)}>
                                             <Trash />
                                         </Button>
 
-                                        <EditEmpModal show={this.state.editModalShow}
+                                        <EditAdvancePaymentModal show={this.state.editModalShow}
                                             onHide={editModalClose}
-                                            empid={empid}
-                                            empname={empname}
-                                            site={site}
-                                            doj={doj}
-                                            phone={phone}
-                                            amount={amount}
-                                            fullamount={fullamount}
-                                            workerid={workerid}
-                                        />
+                                            advid={advid}
+                                            advname={advname}
+                                            advworker={advworker}
+                                            advamount={advamount}
+                                            advnotes={advnotes} 
+                                            advdate={advdate}/>
                                     </ButtonToolbar>
 
                                 </td>
@@ -158,10 +150,10 @@ export class Employee extends Component {
                 <ButtonToolbar>
                     <Button variant='primary'
                         onClick={() => this.setState({ addModalShow: true })}>
-                            <PlusCircle className='ms-1'/>
-                        עובד חדש</Button>
+                        <PlusCircle className='ms-1' />
+                         מפרעה חדשה</Button>
 
-                    <AddEmpModal show={this.state.addModalShow}
+                    <AddAdvancePaymentModal show={this.state.addModalShow}
                         onHide={addModalClose} />
                 </ButtonToolbar>
             </div>

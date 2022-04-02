@@ -12,9 +12,10 @@ export class Expense extends Component{
     constructor(props){
         super(props);
         this.state={expenses:[], addModalShow:false, editModalShow:false}
+        this.refreshExpensesList.bind(this);
     }
 
-    refreshList(){
+    refreshExpensesList(){
         fetch(process.env.REACT_APP_API+'expense/GetAllExpenses')
         .then(response=>response.json())
         .then(data=>{
@@ -23,14 +24,14 @@ export class Expense extends Component{
     }
 
     componentDidMount(){
-        this.refreshList();
+        this.refreshExpensesList();
     }
 
 
     componentDidUpdate(prevProps, prevState){
-        if (prevState.addModalShow != this.state.addModalShow || prevState.editModalShow != this.state.editModalShow) {
-       this.refreshList();
-       }
+       // if (prevState.addModalShow != this.state.addModalShow || prevState.editModalShow != this.state.editModalShow) {
+       this.refreshExpensesList();
+       //}
    }
 
     deleteExpense(expenseId){
@@ -59,7 +60,7 @@ export class Expense extends Component{
                         buttons: false,
                         
                       });
-                      
+
                     }
                     else { 
                         swal({
@@ -81,7 +82,6 @@ export class Expense extends Component{
             }
         
                )
-       
     }
     render(){
         const {expenses, expenseid,expensename,expenseprice}=this.state;

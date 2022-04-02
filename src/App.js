@@ -7,6 +7,7 @@ import { Navigation } from './Navigation';
 import { Attendance } from './Attendance';
 import {BrowserRouter,Route,Routes} from 'react-router-dom';
 import { Expense } from './Expense';
+import { AdvancePayment } from './AdvancePayment';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
        <Route path="/site" element={<Site/>} />
        <Route path="/employee" element={<Employee/>} />
        <Route path="/attendance" element={<Attendance/>} />
+       <Route path="/advancePayment" element={<AdvancePayment/>} />
        <Route path="/expense" element={<Expense/>} />
      </Routes>
     </div>

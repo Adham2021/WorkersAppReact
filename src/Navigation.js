@@ -22,6 +22,9 @@ export class Navigation extends Component {
                         <NavLink className="d-inline p-2 bg-dark text-white" to="/attendance">
                             נוכחות
                         </NavLink>
+                        <NavLink className="d-inline p-2 bg-dark text-white" to="/advancePayment">
+                            מפרעות
+                        </NavLink>
                         <NavLink className="d-inline p-2 bg-dark text-white" to="/expense">
                             הוצאות
                         </NavLink>

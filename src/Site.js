@@ -28,9 +28,9 @@ export class Site extends Component{
 
 
     componentDidUpdate(prevProps, prevState){
-        if (prevState.addModalShow != this.state.addModalShow || prevState.editModalShow != this.state.editModalShow) {
+       // if (prevState.addModalShow != this.state.addModalShow || prevState.editModalShow != this.state.editModalShow) {
        this.refreshList();
-       }
+       //}
    }
 
     deleteSite(siteId){
@@ -59,7 +59,7 @@ export class Site extends Component{
                         buttons: false,
                         
                       });
-                      this.refreshList();
+                    
                     }
                     else { 
                         swal({
