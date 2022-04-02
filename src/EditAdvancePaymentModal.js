@@ -21,7 +21,7 @@ export class EditAdvancePaymentModal extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        fetch(process.env.REACT_APP_API + 'worker/UpdateAdvancePayment', {
+        fetch(process.env.REACT_APP_API + 'advancePayment/UpdateAdvancePayment', {
             method: 'POST',
 
             headers: {
