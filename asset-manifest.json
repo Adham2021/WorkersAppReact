@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/WorkersAppReact/static/css/main.5d34e3df.css",
+    "main.js": "/WorkersAppReact/static/js/main.e3cceebf.js",
+    "static/js/787.28cb0dcd.chunk.js": "/WorkersAppReact/static/js/787.28cb0dcd.chunk.js",
+    "static/media/logo.svg": "/WorkersAppReact/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/WorkersAppReact/index.html",
+    "main.5d34e3df.css.map": "/WorkersAppReact/static/css/main.5d34e3df.css.map",
+    "main.e3cceebf.js.map": "/WorkersAppReact/static/js/main.e3cceebf.js.map",
+    "787.28cb0dcd.chunk.js.map": "/WorkersAppReact/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5d34e3df.css",
+    "static/js/main.e3cceebf.js"
+  ]
+}
