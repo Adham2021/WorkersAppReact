@@ -8,6 +8,7 @@ import { Attendance } from './Attendance';
 import {BrowserRouter,Route,Routes} from 'react-router-dom';
 import { Expense } from './Expense';
 import { AdvancePayment } from './AdvancePayment';
+import { HoursReport } from './HoursReport';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
        <Route path="/attendance" element={<Attendance/>} />
        <Route path="/advancePayment" element={<AdvancePayment/>} />
        <Route path="/expense" element={<Expense/>} />
+       <Route path="/hoursReport" element={<HoursReport/>} />
      </Routes>
     </div>
     </BrowserRouter>

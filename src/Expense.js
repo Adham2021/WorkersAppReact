@@ -84,7 +84,7 @@ export class Expense extends Component{
                )
     }
     render(){
-        const {expenses, expenseid,expensename,expenseprice}=this.state;
+        const {expenses, expenseid,expensename,expenseprice,expensedate}=this.state;
         let addModalClose=()=>this.setState({addModalShow:false});
         let editModalClose=()=>this.setState({editModalShow:false});
         return(
@@ -94,6 +94,7 @@ export class Expense extends Component{
                         <tr>
                         <th>שם הוצאה</th>
                         <th>מחיר</th>
+                        <th>תאריך</th>
                         <th></th>
                         </tr>
                     </thead>
@@ -102,11 +103,15 @@ export class Expense extends Component{
                             <tr key={Expense.Id}>
                                 <td>{Expense.Name}</td>
                                 <td>{Expense.Price}</td>
+                                <td>{Expense.date.split("T")[0]}</td>
                                 <td>
 <ButtonToolbar>
     <Button className="mr-2 ms-1" variant="info"
     onClick={()=>this.setState({editModalShow:true,
-        expenseid:Expense.Id,expensename:Expense.Name,expenseprice:Expense.Price})}>
+        expenseid:Expense.Id,
+        expensename:Expense.Name,
+        expenseprice:Expense.Price,
+        expensedate:Expense.date.split("T")[0]})}>
             
             <Pencil />
         </Button>
@@ -121,7 +126,8 @@ export class Expense extends Component{
         onHide={editModalClose}
         expenseid={expenseid}
         expensename={expensename}
-        expenseprice={expenseprice}/> }
+        expenseprice={expenseprice}
+        expensedate={expensedate}/> }
 </ButtonToolbar>
 
                                 </td>

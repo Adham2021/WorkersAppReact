@@ -7,7 +7,7 @@ export class Attendance extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { workDays: [] };
+    this.state = { workDays: [], attendanceDate: '' };
 
   }
   // State with list of all checked item
@@ -27,8 +27,8 @@ export class Attendance extends Component {
   componentDidMount() {
     this.getworkDays();
   }
-  componentDidUpdate(){
-    console.log("teze")
+  componentDidUpdate() {
+
   }
 
   render() {
@@ -37,7 +37,7 @@ export class Attendance extends Component {
     const futureDate = date.getDate();
     date.setDate(futureDate);
     const defaultValueDate = date.toLocaleDateString('en-CA');
-    const defaultWorkDayHours = date.getDay() == 5 ? 8 : 9.5;
+    //this.setState( {attendanceDate:getDayName(date.getDay()) + " , " + defaultValueDate})
     // Add/Remove checked item from list
 
 
@@ -56,7 +56,8 @@ export class Attendance extends Component {
           NumberOfHours: 9.5,
           WorkerId: item.WorkerId,
           NumberOfHours: item.NumberOfHours,
-          HourPercent: item.HourPercent
+          HourPercent: item.HourPercent,
+          Amount: item.Worker.Amount
         })
       })
         .then(res => res.json())
@@ -70,21 +71,27 @@ export class Attendance extends Component {
 
     };
     const handleWorkHours = (id, hours) => {
-      var workday=this.state.workDays.find(e => e.Id == id);
-      this.state.workDays[this.state.workDays.indexOf(workday)].NumberOfHours=Number(hours);
-     this.forceUpdate();
-     handleAttendance(workday,workday.IsAttendance);
+      var workday = this.state.workDays.find(e => e.Id == id);
+      this.state.workDays[this.state.workDays.indexOf(workday)].NumberOfHours = Number(hours);
+      this.forceUpdate();
+      handleAttendance(workday, workday.IsAttendance);
 
     }
     const handleWorkHourPercent = (id, percent) => {
-      var workday=this.state.workDays.find(e => e.Id == id);
-    this.state.workDays[this.state.workDays.indexOf(workday)].HourPercent=Number(percent);
-     this.forceUpdate()
-     handleAttendance(workday,workday.IsAttendance);
+      var workday = this.state.workDays.find(e => e.Id == id);
+      this.state.workDays[this.state.workDays.indexOf(workday)].HourPercent = Number(percent);
+      this.forceUpdate()
+      handleAttendance(workday, workday.IsAttendance);
 
     }
     const handleChangeDate = () => {
       this.getworkDays();
+      const date = new Date(document.getElementById("TodayDate").value)
+      const futureDate = date.getDate();
+      date.setDate(futureDate);
+      const defaultValueDate = date.toLocaleDateString('en-CA');
+
+      this.setState({ attendanceDate: getDayName(date.getDay()) + " , " + defaultValueDate })
     }
     const getDayName = (day) => {
       var dayName = "";
@@ -119,7 +126,7 @@ export class Attendance extends Component {
         <span >בחר תאריך : </span>
         <input className="mt-3" type="date" defaultValue={defaultValueDate} id="TodayDate" onChange={handleChangeDate} />
         <div className="checkList">
-          <div className="title m-2">נוכחות העובדים {getDayName(date.getDay()) + " , " + defaultValueDate}</div>
+          <div className="title m-2">נוכחות העובדים {this.state.attendanceDate}</div>
           <div className="container">
             <div className="row">
               <div className="col-12">
@@ -145,7 +152,7 @@ export class Attendance extends Component {
                           <input id={'workDayHourNum' + '_' + item.Id} defaultValue={item.NumberOfHours} type="number" className="form-control" onChange={(e) => handleWorkHours(item.Id, e.target.value)} />
                         </td>
                         <td>
-                          <select  defaultValue={item.HourPercent} id={'workDayHourPercent' + '_' + item.Id} className="form-select" onChange={(e) => handleWorkHourPercent(item.Id, e.target.value)} >
+                          <select defaultValue={item.HourPercent} id={'workDayHourPercent' + '_' + item.Id} className="form-select" onChange={(e) => handleWorkHourPercent(item.Id, e.target.value)} >
                             <option value="100">100</option>
                             <option value="125">125</option>
                             <option value="140">140</option>

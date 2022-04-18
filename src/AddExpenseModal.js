@@ -21,7 +21,8 @@ export class AddExpenseModal extends Component {
             body: JSON.stringify({
                 Id: 0,
                 Name: event.target.ExpenseName.value,
-                Price: event.target.ExpensePrice.value
+                Price: event.target.ExpensePrice.value,
+                date: event.target.ExpenseDate.value.split("T")[0]
 
             })
         })
@@ -83,6 +84,11 @@ export class AddExpenseModal extends Component {
                                         <Form.Label>מחיר</Form.Label>
                                         <Form.Control type="number" name="ExpensePrice" required
                                             placeholder="מחיר" />
+                                    </Form.Group>
+                                    <Form.Group controlId="ExpenseDate">
+                                        <Form.Label>תאריך</Form.Label>
+                                        <Form.Control type="date" name="ExpenseDate" required
+                                            placeholder="תאריך" />
                                     </Form.Group>
                                     <Form.Group>
                                         <Button variant="primary" type="submit" className='mt-1'>

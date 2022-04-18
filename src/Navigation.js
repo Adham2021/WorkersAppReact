@@ -28,6 +28,9 @@ export class Navigation extends Component {
                         <NavLink className="d-inline p-2 bg-dark text-white" to="/expense">
                             הוצאות
                         </NavLink>
+                        <NavLink className="d-inline p-2 bg-dark text-white" to="/hoursReport">
+                            דוח שעות
+                        </NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

@@ -21,6 +21,7 @@ export class EditExpenseModal extends Component {
                 Id: this.props.expenseid,
                 Name: event.target.ExpenseName.value,
                 Price: event.target.ExpensePrice.value,
+                date: event.target.ExpenseDate.value.split("T")[0],
 
             })
         })
@@ -78,13 +79,19 @@ export class EditExpenseModal extends Component {
                                         <Form.Label>שם</Form.Label>
                                         <Form.Control type="text" name="ExpenseName" required
                                             defaultValue={this.props.expensename}
-                                            placeholder="Expense Name" />
+                                            placeholder="שם הוצאה" />
                                     </Form.Group>
                                     <Form.Group controlId="ExpensePrice">
                                         <Form.Label>מחיר</Form.Label>
                                         <Form.Control type="text" name="ExpensePrice" required
                                             defaultValue={this.props.expenseprice}
-                                            placeholder="Expense Price" />
+                                            placeholder="מחיר" />
+                                    </Form.Group>
+                                    <Form.Group controlId="ExpenseDate">
+                                        <Form.Label>תאריך</Form.Label>
+                                        <Form.Control type="date" name="ExpenseDate" required
+                                            defaultValue={this.props.expensedate}
+                                            placeholder="תאריך" />
                                     </Form.Group>
                                     <Form.Group>
                                         <Button variant="primary" type="submit">
